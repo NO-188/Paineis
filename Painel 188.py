@@ -49,7 +49,7 @@ async def excluir_canais(guild):
     print(f"{Fore.RED}[!] A apagar todos os canais em massa...")
     tasks = [deletar_canal_task(ch) for ch in guild.channels]
     await asyncio.gather(*tasks)
-    print(f"{Fore.GREEN}[+] Canais limpos com velocidade turbo.")
+    print(f"{Fore.GREEN}[+] Canais apagados")
 
 async def criar_canal_task(guild, nome):
     async with semaphore:
