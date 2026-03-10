@@ -6,14 +6,11 @@ from colorama import Fore, Style
 
 colorama.init(autoreset=True)
 
-# --- Configuração de Velocidade (Estilo INFZRNAL) ---
 semaphore = asyncio.Semaphore(50)
 
-# Configuração de intenções
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
-# --- Interface PAINEL 188 ---
 BANER = f"""{Fore.BLUE}{Style.BRIGHT}
   ____    _     ___ _   _  _____ _       _  ___  ___  
  |  _ \  / \   |_ _| \ | || ____| |     / |( _ )( _ ) 
@@ -38,7 +35,6 @@ MENU = f"""{Fore.BLUE}
 └───────────────────────────────────────┘
 """
 
-# --- Funções de Ação (Lógica de Alta Velocidade) ---
 
 async def deletar_canal_task(channel):
     async with semaphore:
@@ -102,14 +98,14 @@ async def spam_todos_canais(guild):
 
 async def enviar_dm_task(member, mensagem):
     async with semaphore:
-        for _ in range(3): # Loop para enviar 3 vezes
+        for _ in range(3):
             try:
                 await member.send(mensagem)
                 print(f"{Fore.GREEN}[+] DM enviada para: {member.name}")
-                await asyncio.sleep(0.1) # Pequena pausa para evitar rate limit instantâneo
+                await asyncio.sleep(0.1)
             except:
                 print(f"{Fore.RED}[X] Falha/Bloqueio ao enviar para: {member.name}")
-                break # Sai do loop de 3 se houver erro (ex: DM fechou ou block)
+                break
 
 async def spam_dm_all(guild):
     mensagem = input(f"{Fore.CYAN}Digite a mensagem para DM All (3x): ")
@@ -119,7 +115,6 @@ async def spam_dm_all(guild):
     await asyncio.gather(*tasks)
     print(f"{Fore.GREEN}[+] Spam DM All (3x) finalizado.")
 
-# --- Loop de Comando ---
 
 @client.event
 async def on_ready():
@@ -158,6 +153,5 @@ async def on_ready():
         else:
             print(f"{Fore.YELLOW}Opção inválida!")
 
-# Execução
 token = input("Digite o Token do Bot: ")
 client.run(token)
